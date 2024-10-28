@@ -2,7 +2,7 @@ services:
   moirai-jobs-api:
     build:
       context: ../
-      dockerfile: docker/Dockerfile.moirai.jobs.api
+      dockerfile: docker/dockerfiles/Dockerfile.moirai.jobs.api
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -26,7 +26,7 @@ services:
   nasxt-tier1:
     build:
       context: ../
-      dockerfile: docker/Dockerfile.nasxt-tier1
+      dockerfile: docker/dockerfiles/Dockerfile.nasxt-tier1
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -51,7 +51,7 @@ services:
   nsxt-locale-service:
     build:
       context: ../
-      dockerfile: docker/Dockerfile.nsxt-locale-service
+      dockerfile: docker/dockerfiles/Dockerfile.nsxt-locale-service
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}

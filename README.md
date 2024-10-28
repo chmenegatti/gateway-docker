@@ -14,6 +14,19 @@ This is a project that aims to provide a simple way to deploy microservices in c
 - RabbitMQ
 - Redis
 
+## Optional Requirements
+
+- Portainer
+
+## **IMPORTANT**
+
+This projects runs in a Docker Network. This network is created by Nemsis Starter Project. You need to run the Nemesis Starter Project before running this project. 
+Networi is setted to 172.20.0.1/16 and moirai-jobs-api is fixed to 172.20.0.10. So, you have to set this configuration in your /etc/hosts file.
+
+```
+172.20.0.10 moirai-jobs-api
+```
+
 ## Before running
 
 Before running the projet, you need to create a `.env` file in the root of the project with the following content:
@@ -61,3 +74,6 @@ This command will start all the services from the SDN VPN flow. It will create t
 
 ### SDNVPN Create Flow
 ![SDNVPN Create Flow](https://mermaid.ink/img/pako:eNqtlk9vwiAYxr9Kw3mSuD-69bDTjjttt6UXUl4tCQVCqdGo3311W0QU6ovZrTYPz_MT5XnZklpzICVZWmaa4v2jUkWxmtIpVd3a0ZVRtAO7EjXQ2gJzUEwmrzsFa7c7yO69DBQ3Wij3p0P5gLXa7kZ19EdDOUg4mqZTQ7qHU9OuE1qFcFd8PF1aGMNLxoZ0j9QwqZl0mja6O9u3cQ9PltTFwOKJIdWT19heQkg1YnAjUjwuRJqdaYALd325B4pTx2hiSSHLnC60dUKBo4xzO3y_cIeSDh4nzhzDSYaFTM9eZrQU9SZEGne5hSsVGGK9XKhOfrhRC880S7HHsOKBIdThXxnszsgijzFP0MYocE12hSrDxFNeuCBrK2T5pybOAsVVBnb0ZHVyFieiSZATCF_PWYCIM4wZQvimzqLDnWbMPIqXN9p9hBF11M_nU0ZJ4f3jkOSOtGBbJvhwadseTCviGmihIuXwyGHBeukqUqn9IGW9058bVZPS2R7uiNX9siHlgslu-NQbPni-CTZc_trjW8PUl9bt75L9N8-yn0k)
+
+### SDNVPN Delete Flow
+![SDNVPN Delete Flow](https://mermaid.ink/img/pako:eNqVlD1vwyAQhv-KxZwgpd_y0Clju7Rb5QWZc4yEOQSHlSjJfy9OP1wqGzkboPee54bjjqxGCaxkOydsW7y8VaYo-g3fcOP3xHtruAfvFRouQQNBsV4_nwzs6TTEbsYYGGlRGfrOLeKAc-guoCGQFM6T0w5u_wpcr2q4ipPpYJacNnDHrdAoNCF3QQMHqWgRIaOeYqbW-3-JZeUZ5TQwlT6MmRY9LQZktNPIVPvIG3SkDBC3qFV9WIzIiOegqfppTAkpXZzgKygZ-yw31V9ZNy1kK9aB64SS8ZsfB1DFqIUOKlbGo4RGBE0Vq8w5RkUgfD-YmpXkAqyYw7BrWdkI7eMtWCkItkrEddH9vlphPhC7n5Jh3NC9fu2Vy3o5fwI4sIug)
