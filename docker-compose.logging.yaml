@@ -1,0 +1,55 @@
+services:
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    networks:
+      nemesis-starter_nemesis:
+        ipv4_address: 172.20.0.151
+    container_name: grafana
+    restart: unless-stopped
+
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki/config.yml:/etc/loki/local-config.yaml
+      - loki-data:/loki
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      nemesis-starter_nemesis:
+        ipv4_address: 172.20.0.152
+    container_name: loki
+    restart: unless-stopped
+
+  promtail:
+    image: grafana/promtail:latest
+    volumes:
+      - ./promtail/config.yml:/etc/promtail/config.yml
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    command: -config.file=/etc/promtail/config.yml
+    environment:
+      - HOSTNAME=${HOSTNAME}
+    networks:
+      nemesis-starter_nemesis:
+        ipv4_address: 172.20.0.153
+    container_name: promtail
+    restart: unless-stopped
+
+volumes:
+  grafana-data:
+  loki-data:
+  loki-wal:
+
+networks:
+  nemesis-starter_nemesis:
+    external: true
