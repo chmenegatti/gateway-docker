@@ -26,7 +26,7 @@ services:
   nasxt-tier1:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.nasxt-tier1
+      dockerfile: docker/dockerfiles/Dockerfile.nsxt-tier1
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -73,17 +73,17 @@ services:
     depends_on:
       - moirai-jobs-api
 
-  nsxt-vpn-session:
+  nsxt-security-policy:
     build:
       context: ../
-      dockerfile: docker/Dockerfile.nsxt-vpn-session
+      dockerfile: docker/Dockerfile.nsxt-security-policy
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=nsxt-vpn-session
+        - SERVICE_NAME=nsxt-security-policy
     networks:
       - nemesis-starter_nemesis
-    container_name: nsxt-vpn-session
+    container_name: nsxt-security-policy
     environment:
       - ENV=dev
       - ETCD_URL=nemesis-etcd:2379
@@ -98,17 +98,17 @@ services:
     depends_on:
       - moirai-jobs-api
 
-  paloalto-host:
+  paloalto-tag:
     build:
       context: ../
-      dockerfile: docker/Dockerfile.paloalto-host
+      dockerfile: docker/Dockerfile.paloalto-tag
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=paloalto-host
+        - SERVICE_NAME=paloalto-tag
     networks:
       - nemesis-starter_nemesis
-    container_name: paloalto-host
+    container_name: paloalto-tag
     environment:
       - ENV=dev
       - ETCD_URL=nemesis-etcd:2379
@@ -123,17 +123,17 @@ services:
     depends_on:
       - moirai-jobs-api
 
-  paloalto-rule:
+  vmware-virtual-machine:
     build:
       context: ../
-      dockerfile: docker/Dockerfile.paloalto-rule
+      dockerfile: docker/Dockerfile.vmware-virtual-machine
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=paloalto-rule
+        - SERVICE_NAME=vmware-virtual-machine
     networks:
       - nemesis-starter_nemesis
-    container_name: paloalto-rule
+    container_name: vmware-virtual-machine
     environment:
       - ENV=dev
       - ETCD_URL=nemesis-etcd:2379
@@ -148,17 +148,17 @@ services:
     depends_on:
       - moirai-jobs-api
 
-  fortinet-address:
+  nemesis-organization:
     build:
       context: ../
-      dockerfile: docker/Dockerfile.fortinet-address
+      dockerfile: docker/Dockerfile.nemesis-organization
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=fortinet-address
+        - SERVICE_NAME=nemesis-organization
     networks:
       - nemesis-starter_nemesis
-    container_name: fortinet-address
+    container_name: nemesis-organization
     environment:
       - ENV=dev
       - ETCD_URL=nemesis-etcd:2379
