@@ -23,17 +23,17 @@ services:
     labels:
       - "logging=promtail"
 
-  nasxt-tier1:
+  nsxt-tier1:
     build:
       context: ../
       dockerfile: docker/dockerfiles/Dockerfile.nsxt-tier1
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=nasxt-tier1
+        - SERVICE_NAME=nsxt-tier1
     networks:
       - nemesis-starter_nemesis
-    container_name: nasxt-tier1
+    container_name: nsxt-tier1
     environment:
       - ENV=dev
       - ETCD_URL=nemesis-etcd:2379
@@ -76,7 +76,7 @@ services:
   nsxt-security-policy:
     build:
       context: ../
-      dockerfile: docker/Dockerfile.nsxt-security-policy
+      dockerfile: docker/dockerfiles/Dockerfile.nsxt-security-policy
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -101,7 +101,7 @@ services:
   paloalto-tag:
     build:
       context: ../
-      dockerfile: docker/Dockerfile.paloalto-tag
+      dockerfile: docker/dockerfiles/Dockerfile.paloalto-tag
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -126,7 +126,7 @@ services:
   vmware-virtual-machine:
     build:
       context: ../
-      dockerfile: docker/Dockerfile.vmware-virtual-machine
+      dockerfile: docker/dockerfiles/Dockerfile.vmware-virtual-machine
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -151,7 +151,7 @@ services:
   nemesis-organization:
     build:
       context: ../
-      dockerfile: docker/Dockerfile.nemesis-organization
+      dockerfile: docker/dockerfiles/Dockerfile.nemesis-organization
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -159,56 +159,6 @@ services:
     networks:
       - nemesis-starter_nemesis
     container_name: nemesis-organization
-    environment:
-      - ENV=dev
-      - ETCD_URL=nemesis-etcd:2379
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-        tag: "{{.Name}}"
-    labels:
-      - "logging=promtail"
-    depends_on:
-      - moirai-jobs-api
-
-  fortinet-policy:
-    build:
-      context: ../
-      dockerfile: docker/Dockerfile.fortinet-policy
-      args:
-        - GITLAB_USERNAME=${GITLAB_USERNAME}
-        - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=fortinet-policy
-    networks:
-      - nemesis-starter_nemesis
-    container_name: fortinet-policy
-    environment:
-      - ENV=dev
-      - ETCD_URL=nemesis-etcd:2379
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-        tag: "{{.Name}}"
-    labels:
-      - "logging=promtail"
-    depends_on:
-      - moirai-jobs-api
-
-  nemesis-vpn:
-    build:
-      context: ../
-      dockerfile: docker/Dockerfile.nemesis-vpn
-      args:
-        - GITLAB_USERNAME=${GITLAB_USERNAME}
-        - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=nemesis-vpn
-    networks:
-      - nemesis-starter_nemesis
-    container_name: nemesis-vpn
     environment:
       - ENV=dev
       - ETCD_URL=nemesis-etcd:2379
