@@ -20,7 +20,7 @@ This is a project that aims to provide a simple way to deploy microservices in c
 
 ## **IMPORTANT**
 
-This projects runs in a Docker Network. This network is created by Nemsis Starter Project. You need to run the Nemesis Starter Project before running this project. 
+This projects runs in a Docker Network. This network is created by Nemesis Starter Project. You need to run the Nemesis Starter Project before running this project. 
 Networi is setted to 172.20.0.1/16 and moirai-jobs-api is fixed to 172.20.0.10. So, you have to set this configuration in your /etc/hosts file.
 
 ```
@@ -77,3 +77,11 @@ This command will start all the services from the SDN VPN flow. It will create t
 
 ### SDNVPN Delete Flow
 ![SDNVPN Delete Flow](https://mermaid.ink/img/pako:eNqVlD1vwyAQhv-KxZwgpd_y0Clju7Rb5QWZc4yEOQSHlSjJfy9OP1wqGzkboPee54bjjqxGCaxkOydsW7y8VaYo-g3fcOP3xHtruAfvFRouQQNBsV4_nwzs6TTEbsYYGGlRGfrOLeKAc-guoCGQFM6T0w5u_wpcr2q4ipPpYJacNnDHrdAoNCF3QQMHqWgRIaOeYqbW-3-JZeUZ5TQwlT6MmRY9LQZktNPIVPvIG3SkDBC3qFV9WIzIiOegqfppTAkpXZzgKygZ-yw31V9ZNy1kK9aB64SS8ZsfB1DFqIUOKlbGo4RGBE0Vq8w5RkUgfD-YmpXkAqyYw7BrWdkI7eMtWCkItkrEddH9vlphPhC7n5Jh3NC9fu2Vy3o5fwI4sIug)
+
+## Other Flows
+
+- [Organizations](Organizations.md)
+- [Networks](Networks.md)
+- [Virtual-Machines](Virtual-Machines.md)
+- [Public-Addresses](Public-Addresses.md)
+- [SDN VPN](SDNVPN.md)
