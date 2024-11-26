@@ -20,7 +20,7 @@ COPY ./${SERVICE_NAME} .
 RUN go build -o main
 
 # Configurar variável de ambiente
-ENV ENV=dev
+# ENV ENV=dev
 
 # Comando para executar a aplicação
 CMD ENV=${ENV} ./main

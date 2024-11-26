@@ -12,7 +12,7 @@ services:
         ipv4_address: 172.20.0.10
     container_name: moirai-jobs-api
     environment:
-      - ENV=dev
+      - ENV=tesp5
       - ETCD_URL=nemesis-etcd:2379
     logging:
       driver: "json-file"
@@ -23,6 +23,31 @@ services:
     labels:
       - "logging=promtail"
 
+  restrictions-ports:
+    build:
+      context: ../
+      dockerfile: docker/dockerfiles/Dockerfile.restrictions-ports
+      args:
+        - GITLAB_USERNAME=${GITLAB_USERNAME}
+        - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
+        - SERVICE_NAME=restrictions-ports
+    networks:
+      - nemesis-starter_nemesis
+    container_name: restrictions-ports
+    environment:
+      - ENV=tesp5
+      - ETCD_URL=nemesis-etcd:2379
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        tag: "{{.Name}}"
+    labels:
+      - "logging=promtail"
+    depends_on:
+      - moirai-jobs-api
+
   paloalto-service:
     build:
       context: ../
@@ -30,12 +55,12 @@ services:
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=nsxt-vpn-service
+        - SERVICE_NAME=paloalto-service
     networks:
       - nemesis-starter_nemesis
-    container_name: nsxt-vpn-service
+    container_name: paloalto-service
     environment:
-      - ENV=dev
+      - ENV=tesp5
       - ETCD_URL=nemesis-etcd:2379
     logging:
       driver: "json-file"
@@ -55,12 +80,12 @@ services:
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=nsxt-vpn-local-endpoint
+        - SERVICE_NAME=paloalto-host
     networks:
       - nemesis-starter_nemesis
-    container_name: nsxt-vpn-local-endpoint
+    container_name: paloalto-host
     environment:
-      - ENV=dev
+      - ENV=tesp5
       - ETCD_URL=nemesis-etcd:2379
     logging:
       driver: "json-file"
@@ -80,12 +105,12 @@ services:
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=nsxt-vpn-session
+        - SERVICE_NAME=paloalto-rule
     networks:
       - nemesis-starter_nemesis
-    container_name: nsxt-vpn-session
+    container_name: paloalto-rule
     environment:
-      - ENV=dev
+      - ENV=tesp5
       - ETCD_URL=nemesis-etcd:2379
     logging:
       driver: "json-file"
@@ -105,12 +130,12 @@ services:
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=paloalto-host
+        - SERVICE_NAME=paloalto-nat
     networks:
       - nemesis-starter_nemesis
-    container_name: paloalto-host
+    container_name: paloalto-nat
     environment:
-      - ENV=dev
+      - ENV=tesp5
       - ETCD_URL=nemesis-etcd:2379
     logging:
       driver: "json-file"
@@ -130,12 +155,12 @@ services:
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=paloalto-rule
+        - SERVICE_NAME=fortinet-service
     networks:
       - nemesis-starter_nemesis
-    container_name: paloalto-rule
+    container_name: fortinet-service
     environment:
-      - ENV=dev
+      - ENV=tesp5
       - ETCD_URL=nemesis-etcd:2379
     logging:
       driver: "json-file"
@@ -160,7 +185,7 @@ services:
       - nemesis-starter_nemesis
     container_name: fortinet-address
     environment:
-      - ENV=dev
+      - ENV=tesp5
       - ETCD_URL=nemesis-etcd:2379
     logging:
       driver: "json-file"
@@ -180,12 +205,12 @@ services:
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=fortinet-policy
+        - SERVICE_NAME=fortinet-ippool
     networks:
       - nemesis-starter_nemesis
-    container_name: fortinet-policy
+    container_name: fortinet-ippool
     environment:
-      - ENV=dev
+      - ENV=tesp5
       - ETCD_URL=nemesis-etcd:2379
     logging:
       driver: "json-file"
@@ -208,9 +233,9 @@ services:
         - SERVICE_NAME=fortinet-policy
     networks:
       - nemesis-starter_nemesis
-    container_name: fortinet-policy
+    container_name: fortinet-virtual-ip
     environment:
-      - ENV=dev
+      - ENV=tesp5
       - ETCD_URL=nemesis-etcd:2379
     logging:
       driver: "json-file"
@@ -230,12 +255,12 @@ services:
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=fortinet-policy
+        - SERVICE_NAME=fortinet-central-snat
     networks:
       - nemesis-starter_nemesis
-    container_name: fortinet-policy
+    container_name: fortinet-central-snat
     environment:
-      - ENV=dev
+      - ENV=tesp5
       - ETCD_URL=nemesis-etcd:2379
     logging:
       driver: "json-file"
@@ -260,7 +285,7 @@ services:
       - nemesis-starter_nemesis
     container_name: fortinet-policy
     environment:
-      - ENV=dev
+      - ENV=tesp5
       - ETCD_URL=nemesis-etcd:2379
     logging:
       driver: "json-file"
@@ -280,12 +305,12 @@ services:
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=nemesis-vpn
+        - SERVICE_NAME=nemesis-nat
     networks:
       - nemesis-starter_nemesis
-    container_name: nemesis-vpn
+    container_name: nemesis-nat
     environment:
-      - ENV=dev
+      - ENV=tesp5
       - ETCD_URL=nemesis-etcd:2379
     logging:
       driver: "json-file"
