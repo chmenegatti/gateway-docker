@@ -23,10 +23,10 @@ services:
     labels:
       - "logging=promtail"
 
-  nsxt-vpn-service:
+  paloalto-service:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.nsxt-vpn-service
+      dockerfile: docker/dockerfiles/Dockerfile.paloalto-service
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -48,10 +48,10 @@ services:
     depends_on:
       - moirai-jobs-api
 
-  nsxt-vpn-local-endpoint:
+  paloalto-host:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.nsxt-vpn-local-endpoint
+      dockerfile: docker/dockerfiles/Dockerfile.paloalto-host
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -73,10 +73,10 @@ services:
     depends_on:
       - moirai-jobs-api
 
-  nsxt-vpn-session:
+  paloalto-rule:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.nsxt-vpn-session
+      dockerfile: docker/dockerfiles/Dockerfile.paloalto-rule
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -98,10 +98,10 @@ services:
     depends_on:
       - moirai-jobs-api
 
-  paloalto-host:
+  paloalto-nat:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.paloalto-host
+      dockerfile: docker/dockerfiles/Dockerfile.paloalto-nat
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -123,10 +123,10 @@ services:
     depends_on:
       - moirai-jobs-api
 
-  paloalto-rule:
+  fortinet-service:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.paloalto-rule
+      dockerfile: docker/dockerfiles/Dockerfile.fortinet-service
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -173,6 +173,81 @@ services:
     depends_on:
       - moirai-jobs-api
 
+  fortinet-ippool:
+    build:
+      context: ../
+      dockerfile: docker/dockerfiles/Dockerfile.fortinet-ippool
+      args:
+        - GITLAB_USERNAME=${GITLAB_USERNAME}
+        - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
+        - SERVICE_NAME=fortinet-policy
+    networks:
+      - nemesis-starter_nemesis
+    container_name: fortinet-policy
+    environment:
+      - ENV=dev
+      - ETCD_URL=nemesis-etcd:2379
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        tag: "{{.Name}}"
+    labels:
+      - "logging=promtail"
+    depends_on:
+      - moirai-jobs-api
+
+  fortinet-virtual-ip:
+    build:
+      context: ../
+      dockerfile: docker/dockerfiles/Dockerfile.fortinet-virtual-ip
+      args:
+        - GITLAB_USERNAME=${GITLAB_USERNAME}
+        - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
+        - SERVICE_NAME=fortinet-policy
+    networks:
+      - nemesis-starter_nemesis
+    container_name: fortinet-policy
+    environment:
+      - ENV=dev
+      - ETCD_URL=nemesis-etcd:2379
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        tag: "{{.Name}}"
+    labels:
+      - "logging=promtail"
+    depends_on:
+      - moirai-jobs-api
+
+  fortinet-central-snat:
+    build:
+      context: ../
+      dockerfile: docker/dockerfiles/Dockerfile.fortinet-central-snat
+      args:
+        - GITLAB_USERNAME=${GITLAB_USERNAME}
+        - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
+        - SERVICE_NAME=fortinet-policy
+    networks:
+      - nemesis-starter_nemesis
+    container_name: fortinet-policy
+    environment:
+      - ENV=dev
+      - ETCD_URL=nemesis-etcd:2379
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        tag: "{{.Name}}"
+    labels:
+      - "logging=promtail"
+    depends_on:
+      - moirai-jobs-api
+
   fortinet-policy:
     build:
       context: ../
@@ -198,10 +273,10 @@ services:
     depends_on:
       - moirai-jobs-api
 
-  nemesis-vpn:
+  nemesis-nat:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.nemesis-vpn
+      dockerfile: docker/dockerfiles/Dockerfile.nemesis-nat
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
