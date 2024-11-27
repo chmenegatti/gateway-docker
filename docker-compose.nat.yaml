@@ -2,7 +2,7 @@ services:
   moirai-jobs-api:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.moirai.jobs.api
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -26,7 +26,7 @@ services:
   restrictions-ports:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.restrictions-ports
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -51,7 +51,7 @@ services:
   paloalto-service:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.paloalto-service
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -76,7 +76,7 @@ services:
   paloalto-host:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.paloalto-host
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -101,7 +101,7 @@ services:
   paloalto-rule:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.paloalto-rule
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -126,7 +126,7 @@ services:
   paloalto-nat:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.paloalto-nat
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -151,7 +151,7 @@ services:
   fortinet-service:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.fortinet-service
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -176,7 +176,7 @@ services:
   fortinet-address:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.fortinet-address
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -201,7 +201,7 @@ services:
   fortinet-ippool:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.fortinet-ippool
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -226,11 +226,11 @@ services:
   fortinet-virtual-ip:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.fortinet-virtual-ip
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=fortinet-policy
+        - SERVICE_NAME=fortinet-virtual-ip
     networks:
       - nemesis-starter_nemesis
     container_name: fortinet-virtual-ip
@@ -251,7 +251,7 @@ services:
   fortinet-central-snat:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.fortinet-central-snat
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -276,7 +276,7 @@ services:
   fortinet-policy:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.fortinet-policy
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -301,7 +301,7 @@ services:
   nemesis-nat:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.nemesis-nat
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
