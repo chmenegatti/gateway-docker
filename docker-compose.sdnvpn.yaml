@@ -2,7 +2,7 @@ services:
   moirai-jobs-api:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.moirai.jobs.api
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -26,7 +26,7 @@ services:
   nsxt-vpn-service:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.nsxt-vpn-service
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -51,7 +51,7 @@ services:
   nsxt-vpn-local-endpoint:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.nsxt-vpn-local-endpoint
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -76,7 +76,7 @@ services:
   nsxt-vpn-session:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.nsxt-vpn-session
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -101,7 +101,7 @@ services:
   paloalto-host:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.paloalto-host
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -126,7 +126,7 @@ services:
   paloalto-rule:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.paloalto-rule
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -151,7 +151,7 @@ services:
   fortinet-address:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.fortinet-address
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -176,7 +176,7 @@ services:
   fortinet-policy:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.fortinet-policy
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
@@ -201,7 +201,7 @@ services:
   nemesis-vpn:
     build:
       context: ../
-      dockerfile: docker/dockerfiles/Dockerfile.nemesis-vpn
+      dockerfile: docker/dockerfiles/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
