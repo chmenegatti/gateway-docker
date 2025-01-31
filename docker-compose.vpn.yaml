@@ -23,110 +23,6 @@ services:
     labels:
       - "logging=promtail"
 
-  address-manager:
-    build:
-      context: ../
-      dockerfile: docker/Dockerfile
-      args:
-        - GITLAB_USERNAME=${GITLAB_USERNAME}
-        - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=address-manager
-    networks:
-      nemesis-starter_nemesis:
-        ipv4_address: 172.20.0.11
-    container_name: address-manager
-    environment:
-      - ENV=${env}
-      - ETCD_URL=nemesis-etcd:2379
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-        tag: "{{.Name}}"
-    labels:
-      - "logging=promtail"
-    depends_on:
-      - moirai-jobs-api
-
-  nsxt-vpn-service:
-    build:
-      context: ../
-      dockerfile: docker/Dockerfile
-      args:
-        - GITLAB_USERNAME=${GITLAB_USERNAME}
-        - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=nsxt-vpn-service
-    networks:
-      - nemesis-starter_nemesis
-    container_name: nsxt-vpn-service
-    environment:
-      - ENV=${env}
-      - ETCD_URL=nemesis-etcd:2379
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-        tag: "{{.Name}}"
-    labels:
-      - "logging=promtail"
-    depends_on:
-      - moirai-jobs-api
-      - address-manager
-
-  nsxt-vpn-local-endpoint:
-    build:
-      context: ../
-      dockerfile: docker/Dockerfile
-      args:
-        - GITLAB_USERNAME=${GITLAB_USERNAME}
-        - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=nsxt-vpn-local-endpoint
-    networks:
-      - nemesis-starter_nemesis
-    container_name: nsxt-vpn-local-endpoint
-    environment:
-      - ENV=${env}
-      - ETCD_URL=nemesis-etcd:2379
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-        tag: "{{.Name}}"
-    labels:
-      - "logging=promtail"
-    depends_on:
-      - moirai-jobs-api
-      - address-manager
-
-  nsxt-vpn-session:
-    build:
-      context: ../
-      dockerfile: docker/Dockerfile
-      args:
-        - GITLAB_USERNAME=${GITLAB_USERNAME}
-        - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=nsxt-vpn-session
-    networks:
-      - nemesis-starter_nemesis
-    container_name: nsxt-vpn-session
-    environment:
-      - ENV=${env}
-      - ETCD_URL=nemesis-etcd:2379
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-        tag: "{{.Name}}"
-    labels:
-      - "logging=promtail"
-    depends_on:
-      - moirai-jobs-api
-      - address-manager
-
   paloalto-host:
     build:
       context: ../
@@ -135,6 +31,7 @@ services:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
         - SERVICE_NAME=paloalto-host
+        - BRANCH=develop 
     networks:
       - nemesis-starter_nemesis
     container_name: paloalto-host
@@ -151,7 +48,84 @@ services:
       - "logging=promtail"
     depends_on:
       - moirai-jobs-api
-      - address-manager
+
+  paloalto-ikegateway:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+      args:
+        - GITLAB_USERNAME=${GITLAB_USERNAME}
+        - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
+        - SERVICE_NAME=paloalto-ikegateway
+        - BRANCH=develop 
+    networks:
+      - nemesis-starter_nemesis
+    container_name: paloalto-ikegateway
+    environment:
+      - ENV=${env}
+      - ETCD_URL=nemesis-etcd:2379
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        tag: "{{.Name}}"
+    labels:
+      - "logging=promtail"
+    depends_on:
+      - moirai-jobs-api
+
+  paloalto-tunnel:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+      args:
+        - GITLAB_USERNAME=${GITLAB_USERNAME}
+        - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
+        - SERVICE_NAME=paloalto-tunnel
+        - BRANCH=develop 
+    networks:
+      - nemesis-starter_nemesis
+    container_name: paloalto-tunnel
+    environment:
+      - ENV=${env}
+      - ETCD_URL=nemesis-etcd:2379
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        tag: "{{.Name}}"
+    labels:
+      - "logging=promtail"
+    depends_on:
+      - moirai-jobs-api
+
+  paloalto-zone:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+      args:
+        - GITLAB_USERNAME=${GITLAB_USERNAME}
+        - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
+        - SERVICE_NAME=paloalto-zone
+        - BRANCH=develop 
+    networks:
+      - nemesis-starter_nemesis
+    container_name: paloalto-zone
+    environment:
+      - ENV=${env}
+      - ETCD_URL=nemesis-etcd:2379
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        tag: "{{.Name}}"
+    labels:
+      - "logging=promtail"
+    depends_on:
+      - moirai-jobs-api
 
   paloalto-rule:
     build:
@@ -161,6 +135,7 @@ services:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
         - SERVICE_NAME=paloalto-rule
+        - BRANCH=develop 
     networks:
       - nemesis-starter_nemesis
     container_name: paloalto-rule
@@ -177,19 +152,19 @@ services:
       - "logging=promtail"
     depends_on:
       - moirai-jobs-api
-      - address-manager
 
-  fortinet-address:
+  paloalto-router:
     build:
       context: ../
       dockerfile: docker/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=fortinet-address
+        - SERVICE_NAME=paloalto-router
+        - BRANCH=develop 
     networks:
       - nemesis-starter_nemesis
-    container_name: fortinet-address
+    container_name: paloalto-router
     environment:
       - ENV=${env}
       - ETCD_URL=nemesis-etcd:2379
@@ -203,19 +178,19 @@ services:
       - "logging=promtail"
     depends_on:
       - moirai-jobs-api
-      - address-manager
 
-  fortinet-policy:
+  paloalto-ipsec:
     build:
       context: ../
       dockerfile: docker/Dockerfile
       args:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
-        - SERVICE_NAME=fortinet-policy
+        - SERVICE_NAME=paloalto-ipsec
+        - BRANCH=develop 
     networks:
       - nemesis-starter_nemesis
-    container_name: fortinet-policy
+    container_name: paloalto-ipsec
     environment:
       - ENV=${env}
       - ETCD_URL=nemesis-etcd:2379
@@ -229,7 +204,32 @@ services:
       - "logging=promtail"
     depends_on:
       - moirai-jobs-api
-      - address-manager
+  
+  paloalto-pbf:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+      args:
+        - GITLAB_USERNAME=${GITLAB_USERNAME}
+        - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
+        - SERVICE_NAME=paloalto-pbf
+        - BRANCH=develop 
+    networks:
+      - nemesis-starter_nemesis
+    container_name: paloalto-pbf
+    environment:
+      - ENV=${env}
+      - ETCD_URL=nemesis-etcd:2379
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        tag: "{{.Name}}"
+    labels:
+      - "logging=promtail"
+    depends_on:
+      - moirai-jobs-api
 
   nemesis-vpn:
     build:
@@ -239,6 +239,7 @@ services:
         - GITLAB_USERNAME=${GITLAB_USERNAME}
         - GITLAB_ACCESS_TOKEN=${GITLAB_ACCESS_TOKEN}
         - SERVICE_NAME=nemesis-vpn
+        - BRANCH=develop 
     networks:
       - nemesis-starter_nemesis
     container_name: nemesis-vpn
@@ -255,7 +256,6 @@ services:
       - "logging=promtail"
     depends_on:
       - moirai-jobs-api
-      - address-manager
 
 networks:
   nemesis-starter_nemesis:
